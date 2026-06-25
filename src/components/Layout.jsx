@@ -1,13 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import MobileBlock from './MobileBlock'
 
 export default function Layout() {
-    return (
-        <div className="flex min-h-screen bg-[#0f1117] text-slate-200">
-            <Sidebar />
-            <main className="flex-1 overflow-y-auto p-8">
-                <Outlet />
-            </main>
-        </div>
-    )
+  return (
+    <MobileBlock>
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto p-8">
+          <Outlet />
+        </main>
+    </MobileBlock>
+  )
 }
