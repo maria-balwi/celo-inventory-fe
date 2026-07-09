@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <MobileBlock>
         <Sidebar />
-        <main className="flex-1 overflow-y-auto p-8">
+        <main className="flex-1 bg-[#EFF1F4] overflow-y-auto p-8">
           <Outlet />
         </main>
     </MobileBlock>

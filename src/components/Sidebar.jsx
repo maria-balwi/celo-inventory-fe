@@ -17,7 +17,7 @@ export default function Sidebar() {
                 <span className=""><img src={logo} alt="Logo" /></span>
                 <div>
                     {/* <div className="text-lg font-semibold text-slate-500 leading-tight">CBSI</div> */}
-                    <div className="text-sm text-slate-500">Inventory System</div>
+                    <div className="text-sm text-slate-700">Inventory System</div>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ export default function Sidebar() {
                             "flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-colors " + 
                         (isActive
                             ? "bg-[#1e2638] text-slate-100 font-medium border-1-[3px] border-indigo-500 pl-[7px]"
-                            : "text-slate-400 hover:bg-[#1e2638] hover:text:slate-200" )
+                            : "text-slate-800 hover:bg-[#1e2638] hover:text-slate-200" )
                         }
                     >
                         <span className="w-5 text-center text-sm">{item.icon}</span>
