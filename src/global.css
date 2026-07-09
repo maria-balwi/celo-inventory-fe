@@ -111,3 +111,7 @@ code {
 } */
 
 @import "tailwindcss";
+
+:root {
+  text-family: Inter;
+}
