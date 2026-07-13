@@ -46,10 +46,10 @@ export default function DataTable({ columns = [], data = [], emptyMessage = "No 
                   className="border-b border-[#252d3d] last:border-0 hover:bg-[#1a2030] transition-colors"
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="px-4 py-3 text-slate-300">
+                    <td key={col.key} className="px-4 py-3 text-black-300">
                       {col.render
                         ? col.render(row[col.key], row)
-                        : (row[col.key] ?? <span className="text-slate-600">-</span>)
+                        : (row[col.key] ?? <span className="text-black-600">-</span>)
                       }
                     </td>
                   ))}
