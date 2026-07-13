@@ -4,6 +4,7 @@ import StatusBadge from "../components/StatusBadge"
 import DataTable from "../components/DataTable"
 import PageHeader from "../components/PageHeader"
 import FleetHealthChart from "../components/FleetHealthChart"
+import AssetAllocationChart from "../components/AssetAllocationChart"
 
 const filteredAssets = [
   { id: "AST-99201", category: "Laptop",  model: "Precision 5570 i9",  serial: "CN-8GHF2-724", assignee: "Jane Doe",      status: "In Use"    },
@@ -52,7 +53,7 @@ export default function Dashboard() {
 
         <div className="flex items-stretch gap-4">
           <div className="flex-1 min-w-0">
-            <DataTable 
+            {/* <DataTable 
               columns={columns} 
               data={filteredAssets} 
               emptyMessage="No assets match your filters."
@@ -60,7 +61,8 @@ export default function Dashboard() {
               statuses={["All Statuses", "In Use", "Available", "Repair"]}
               pageSize={5}
               totalItems={12482}
-            />
+            /> */}
+            <AssetAllocationChart />
           </div>
           <div className="w-[300px] shirnk-0">
             <FleetHealthChart />
