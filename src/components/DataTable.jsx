@@ -10,50 +10,55 @@
 
 export default function DataTable({ columns = [], data = [], emptyMessage = "No results found." }) {
   return (
-    <div className="bg-[#EFF1F4] border border-[#252d3d] rounded-xs overflow-hidden">
-      <table className="w-full table-fixed text-sm">
-        <thead>
-          <tr className="border-b border-[#252d3d]">
-            {columns.map((col) => (
-              <th
-                key={col.key}
-                className="px-4 py-3 text-left text-sm font-bold text-slate-700 uppercase tracking-widest"
-              >
-                {col.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-          
-        <tbody>
-          {data.length === 0 ? (
-            <tr>
-              <td
-                colSpan={columns.length}
-                className="px-4 py-12 text-center text-black-800 text-sm"
-              >
-                {emptyMessage}
-              </td>
+    <>
+      <div className="bg-white border border-[#e2e8f0] rounded-lg p-6 flex flex-col">
+        <p className="text-sm font-semibold text-black-400 uppercase tracking-widest mb-4">
+          Asset Allocation by Department
+        </p>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-[#252d3d]">
+              {columns.map((col) => (
+                <th
+                  key={col.key}
+                  className="px-4 py-3 text-left text-sm font-bold text-slate-700 uppercase tracking-widest"
+                >
+                  {col.label}
+                </th>
+              ))}
             </tr>
-          ) : (
-            data.map((row, rowIndex) => (
-              <tr
-                key={row.id ?? rowIndex}
-                className="border-b border-[#252d3d] last:border-0 hover:bg-[#1a2030] transition-colors"
-              >
-                {columns.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-slate-300">
-                    {col.render
-                      ? col.render(row[col.key], row)
-                      : (row[col.key] ?? <span className="text-slate-600">-</span>)
-                    }
-                  </td>
-                ))}
+          </thead>
+            
+          <tbody>
+            {data.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="px-4 py-12 text-center text-black-800 text-sm"
+                >
+                  {emptyMessage}
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
+            ) : (
+              data.map((row, rowIndex) => (
+                <tr
+                  key={row.id ?? rowIndex}
+                  className="border-b border-[#252d3d] last:border-0 hover:bg-[#1a2030] transition-colors"
+                >
+                  {columns.map((col) => (
+                    <td key={col.key} className="px-4 py-3 text-slate-300">
+                      {col.render
+                        ? col.render(row[col.key], row)
+                        : (row[col.key] ?? <span className="text-slate-600">-</span>)
+                      }
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
