@@ -13,7 +13,7 @@ export default function Sidebar() {
     return (
         <aside className="w-56 shrink-0 bg-[#EFF1F4] border-r border-[#252d3d] flex flex-col py-5 min-h-screen">
 
-            <div className="flex items-center gap-2.5 px-4 pb-5 border-b border-[#252d3d] mb-3">
+            <div className="flex items-center gap-2.5 px-4 pb-5 mb-2">
                 <span className=""><img src={logo} alt="Logo" /></span>
                 <div>
                     {/* <div className="text-lg font-semibold text-slate-500 leading-tight">CBSI</div> */}
