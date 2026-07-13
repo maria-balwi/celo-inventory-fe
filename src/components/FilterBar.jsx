@@ -7,41 +7,53 @@
 //   status={status} onStatusChange={setStatus}
 // />
 
+import { Filter, Download } from "lucide-react"
+
 export default function FilterBar({
-	search, onSearchChange,
 	categories = [], category, onCategoryChange, 
 	statuses = [], status, onStatusChange,
+	onAdvancedFilters, onExportCSV,
 }) {
 	return (
 		<>
-			<div className="flex flex-wrap gap-3 mb-5">
-				{onSearchChange && (
-					<input
-						type="text"
-						placeholder="Search assets, models, assignees..."
-						value={search}
-						onChange={(e) => onSearchChange(e.target.value)}
-						className="flex-1 min-w-[200px] px-3 py-2 rounded-lg bg-white border border-[#e2e8f0] text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-slate-400 transition-colors"
-					/>
-				)}
-				{categories.length > 0 && (
-					<select
-						value ={category}
-						onChange={(e) => onCategoryChange(e.target.value)}
-						className="px-3 py-2 rounded-lg bg-white border border-[#e2e8f0] text-sm text-slate-600 focus:outline-none focus:border-slate-400 transition-colors cursor-pointer"
+			<div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-slate-200">
+				<div className="flex flex-wrap items-center gap-4">
+					{categories.length > 0 && (
+						<label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+							Category:
+							<select
+								value={category}
+								onChange={(e) => onCategoryChange(e.target.value)}
+								className="px-3 py-1.5 rounded-md bg-white border border-slate-300 text-sm font-normal text-slate-700 normal-case tracking-normal focus:outline-none focus:border-slate-400 cursor-pointer"
+							>
+								{categories.map((c) => <option key={c} value={c}>{c}</option>)}
+							</select>
+						</label>
+					)}
+
+					{statuses.length > 0 && (
+						<label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+							Status:
+							<select
+								value={status}
+								onChange={(e) => onStatusChange(e.target.value)}
+								className="px-3 py-1.5 rounded-md bg-white border border-slate-300 text-sm font-normal text-slate-700 normal-case tracking-normal focus:outline-none focus:border-slate-400 cursor-pointer"
+							>
+								{statuses.map((s) => <option key={s} value={s}>{s}</option>)}
+							</select>
+						</label>
+					)}
+				</div>
+
+				<div className="flex items-center gap-5">
+					<button
+						onClick={onAdvancedFilters}
+						className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
 					>
-						{categories.map((c) => <option key={c} value={c}>{c}</option>)}
-					</select>
-				)}
-				{statuses.length > 0 && (
-					<select
-						value={status}
-						onChange={(e) => onStatusChange(e.target.value)}
-						className="px-3 py-2 rounded-lg bg-white border border-[#e2e8f0] text-sm text-slate-600 focus:outline-none focus:border-slate-400 transition-colors cursor-pointer"
-					>	
-						{status.map((s) => <option key={s} value={s}>{s}</option>)}
-					</select>
-				)}
+						<Download size={15} />
+						Export to CSV
+					</button>
+				</div>
 			</div>
 		</>
 	)
