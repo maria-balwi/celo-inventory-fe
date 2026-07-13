@@ -12,9 +12,9 @@ export default function DataTable({ columns = [], data = [], emptyMessage = "No 
   return (
     <>
       <div className="bg-white border border-[#e2e8f0] rounded-lg p-6 flex flex-col">
-        <p className="text-sm font-semibold text-black-400 uppercase tracking-widest mb-4">
-          Asset Allocation by Department
-        </p>
+        {/* <p className="text-sm font-semibold text-black-400 uppercase tracking-widest mb-4">
+
+        </p> */}
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-[#252d3d]">
