@@ -2,7 +2,7 @@ import { div, p } from "framer-motion/client";
 
 export default function StatCard({ label, value, sub, highlight = false }) {
   return (
-    <div className="bg-[#FFF] border border-[#E0E2E5] rounded-xs p-5">
+    <div className="bg-[#FFF] border border-[#E0E2E5] rounded-lg p-5">
       <p className="text-sm font-medium text-slate-500 uppercase tracking-widest mb-1.5">
         {label}
       </p>
