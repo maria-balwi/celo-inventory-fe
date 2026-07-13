@@ -15,8 +15,8 @@ const DOTS = {
 export default function FleetHealthChart({ data = DEFAULT_DATA, healthPct = 92 }) {
 	return (
 		<>
-			<div className="bg-white border border-[#e2e8f0] rounded-xl p-6 flex flex-col">
-				<p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
+			<div className="h-full bg-white border border-[#e2e8f0] rounded-lg p-6 flex flex-col">
+				<p className="text-sm font-semibold text-black-400 uppercase tracking-widest mb-4">
 					Fleet Health
 				</p>
 				<div className="relative flex items-center justify-center" style={{ height: 200 }}>
