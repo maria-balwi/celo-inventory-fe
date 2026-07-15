@@ -10,7 +10,7 @@
 
 import { Plus } from "lucide-react"
 
-export default function PageHeader({ title, subtitle, actions =[], primaryAction }) {
+export default function PageHeader({ title, subtitle, actions =[], primaryAction = [] }) {
   return (
     <div className="flex items-start justify-between mb-2">
       <div>
@@ -33,15 +33,20 @@ export default function PageHeader({ title, subtitle, actions =[], primaryAction
           </button>
         })}
         
-        {primaryAction && (
+        {primaryAction.map((action, i) => (
           <button
+            key={i}
             onClick={primaryAction.onClick}
-            className="flex items-center gap-2 px-5 py-3 rounded-lg bg-slate-900 text-white text-sm font-bold uppercase tracking-wide hover:bg-slate-800 transition-colors"
+            className={
+              action.variant === "outline"
+              ? "flex items-center gap-2 px-5 py-3 rounded-lg border border-slate-300 text-slate-700 text-sm font-bold uppercase tracking-wide hover:bg-slate-50 transition-colors"
+              : "flex items-center gap-2 px-5 py-3 rounded-lg bg-slate-900 text-white text-sm font-bold uppercase tracking-wide hover:bg-slate-800 transition-colors"
+            }
           >
-            <Plus size={16} strokeWidth={2.5} />
-            {primaryAction.label}
+            {action.icon}
+            {action.label}
           </button>
-        )}
+        ))}
       </div>
     </div>
   );
