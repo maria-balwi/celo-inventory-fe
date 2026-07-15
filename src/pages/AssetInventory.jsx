@@ -1,37 +1,47 @@
-import React from "react"
+import { useState } from "react"
 import PageHeader from "../components/PageHeader"
 import StatCard from "../components/StatCard"
 import DataTable from "../components/DataTable"
+import FilterBar from "../components/FilterBar"
 import StatusBadge from "../components/StatusBadge"
 import AssetAllocationChart from "../components/AssetAllocationChart"
 
-const filteredAssets = [
-	{ id: "AST-99201", category: "Laptop",  model: "Precision 5570 i9",  serial: "CN-8GHF2-724", assignee: "Jane Doe",      status: "In Use"    },
-	{ id: "AST-88432", category: "Headset", model: "Poly Blackwire 5220", serial: "SN-POLY-8822", assignee: null,            status: "Available" },
-	{ id: "AST-77110", category: "Laptop",  model: 'MacBook Pro 14" M2', serial: "C02G99XL0850", assignee: "Michael Smith", status: "Repair"    },
-	{ id: "AST-44109", category: "Chair",   model: "Herman Miller Aeron", serial: "HM-A-898871",  assignee: "Alice Rivera",  status: "In Use"    },
-	{ id: "AST-22341", category: "Laptop",  model: "ThinkPad X1 Carbon",  serial: "PF-2G9B-X1C",  assignee: null,            status: "Available" },
+const ASSETS = [
+  { id: "AST-99201", category: "Laptop", model: "Precision 5570 i9", serial: "CN-8GHF2-724", assignee: "Jane Doe", status: "In Use" },
+  { id: "AST-88432", category: "Headset", model: "Poly Blackwire 5220", serial: "SN-POLY-8822", assignee: "-", status: "Available" },
+  { id: "AST-77110", category: "Laptop", model: "MacBook Pro 14\" M2", serial: "C02G99XL0850", assignee: "Michael Smith", status: "Repair" },
+  { id: "AST-44109", category: "Chair", model: "Herman Miller Aeron", serial: "HM-A-898871", assignee: "Alice Rivera", status: "In Use" },
+  { id: "AST-22341", category: "Laptop", model: "ThinkPad X1 Carbon", serial: "PF-2G9B-X1C", assignee: "-", status: "Available" },
 ];
 
-const columns = [
-	{ key: "id",       label: "Asset ID" },
-	{ key: "category", label: "Item Category" },
-	{ key: "model",    label: "Model" },
-	{ key: "serial",   label: "Serial Number" },
-	{ key: "assignee", label: "Assignee" },
-	{ key: "status",   label: "Status",  render: (val) => <StatusBadge status={val} /> },
-	{ key: "actions",  label: "Actions", render: (_, row) => (
-		<button
-			onClick={() => console.log("view", row.id)}
-			className="text-xs font-semibold text-slate-700 hover:text-slate-900"
-		>
-			View History
-		</button>
-	)},
+const assetColumns = [
+  { key: "id", label: "Asset ID", render: (val) => <span className="font-semibold text-slate-800">{val}</span> },
+  { key: "category", label: "Item Category" },
+  { key: "model", label: "Model" },
+  { key: "serial", label: "Serial Number" },
+  { key: "assignee", label: "Assignee" },
+  { key: "status", label: "Status", render: (val) => <StatusBadge status={val} /> },
+  { key: "actions", label: "Actions", render: (_, row) => (
+      <button
+        onClick={() => console.log("view history", row.id)}
+        className="font-semibold text-slate-800 hover:underline"
+      >
+        View History
+      </button>
+    )
+  },
 ];
 
 export default function AssetInventory() {
-	return (
+  const [category, setCategory] = useState("All Categories");
+  const [status, setStatus] = useState("All Statuses");
+
+  const filteredAssets = ASSETS.filter((row) =>
+    (category === "All Categories" || row.category === category) &&
+    (status === "All Statuses" || row.status === status)
+  );
+
+  return (
 		<>
 			<div className="flex flex-col gap-3 text-black-500">
 				<PageHeader 
@@ -51,16 +61,24 @@ export default function AssetInventory() {
 				</div>
 
 				<DataTable
-					columns={columns}
-					data={filteredAssets} // pass the full unfiltered array — DataTable filters + paginates it
-					emptyMessage="No assets match your filters."
-					categories={["All Categories", "Laptop", "Monitor", "Headset", "Keyboard", "Mouse"]}
-					statuses={["All Statuses", "In Use", "Available", "Repair"]}
+					columns={assetColumns}
+					data={filteredAssets}
+					itemLabel="assets"
 					pageSize={5}
-					onExportCSV={() => handleExport(assets)}
-					onAdvancedFilters={() => setShowAdvancedModal(true)}
+					toolbar={
+						<FilterBar
+							categories={["All Categories", "Laptop", "Headset", "Chair"]}
+							category={category}
+							onCategoryChange={setCategory}
+							statuses={["All Statuses", "In Use", "Available", "Repair"]}
+							status={status}
+							onStatusChange={setStatus}
+							onExportCSV={() => console.log("export csv", filteredAssets)}
+							onAdvancedFilters={() => console.log("open advanced filters")}
+						/>
+					}
 				/>
 			</div>
 		</>
-	);
+  );
 }
