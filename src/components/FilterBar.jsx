@@ -1,20 +1,11 @@
-// Usage:
-// <FilterBar
-//   search={search} onSearchChange={setSearch}
-//   categories={["All Categories","Laptop","Headset"]}
-//   category={category} onCategoryChange={setCategory}
-//   statuses={["All Statuses","In Use","Available","Repair"]}
-//   status={status} onStatusChange={setStatus}
-// />
-
-import { Filter, Download } from "lucide-react"
+import { Filter, Download } from "lucide-react";
 
 export default function FilterBar({
-	categories = [], category, onCategoryChange, 
-	statuses = [], status, onStatusChange,
-	onAdvancedFilters, onExportCSV,
+  categories = [], category, onCategoryChange,
+  statuses = [], status, onStatusChange,
+  onAdvancedFilters, onExportCSV,
 }) {
-	return (
+  return (
 		<>
 			<div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-slate-200">
 				<div className="flex flex-wrap items-center gap-4">
@@ -50,11 +41,19 @@ export default function FilterBar({
 						onClick={onAdvancedFilters}
 						className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
 					>
+						<Filter size={15} />
+						Advanced Filters
+					</button>
+					<span className="h-4 w-px bg-slate-300" />
+					<button
+						onClick={onExportCSV}
+						className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+					>
 						<Download size={15} />
 						Export to CSV
 					</button>
 				</div>
 			</div>
 		</>
-	)
+  );
 }
