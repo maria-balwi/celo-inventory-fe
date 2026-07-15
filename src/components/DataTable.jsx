@@ -1,35 +1,21 @@
 import { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import FilterBar from "./FilterBar";
 
 export default function DataTable({
   columns = [],
   data = [],
   emptyMessage = "No results found.",
-  categories = [],       // e.g. ["All Categories", "Laptop", "Headset", "Chair"]
-  statuses = [],         // e.g. ["All Statuses", "In Use", "Available", "Repair"]
-  categoryField = "category", // key in your row objects — change if yours differs
-  statusField = "status",
   pageSize = 5,
-  onAdvancedFilters,
-  onExportCSV,
+  rowKey = "id",
+  itemLabel = "items",
+  toolbar,
 }) {
-  const [category, setCategory] = useState(categories[0] ?? "");
-  const [status, setStatus] = useState(statuses[0] ?? "");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const filtered = useMemo(() => {
-    return data.filter((row) => {
-      const matchesCategory = !category || category === categories[0] || row[categoryField] === category;
-      const matchesStatus = !status || status === statuses[0] || row[statusField] === status;
-      return matchesCategory && matchesStatus;
-    });
-  }, [data, category, status, categories, statuses, categoryField, statusField]);
-
-  const totalItems = filtered.length;
+  const totalItems = data.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const safePage = Math.min(currentPage, totalPages);
-  const paginated = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const paginated = data.slice((safePage - 1) * pageSize, safePage * pageSize);
 
   const startItem = totalItems === 0 ? 0 : (safePage - 1) * pageSize + 1;
   const endItem = Math.min(safePage * pageSize, totalItems);
@@ -43,16 +29,7 @@ export default function DataTable({
 
   return (
     <div className="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col">
-      <FilterBar
-        categories={categories}
-        category={category}
-        onCategoryChange={(v) => { setCategory(v); setCurrentPage(1); }}
-        statuses={statuses}
-        status={status}
-        onStatusChange={(v) => { setStatus(v); setCurrentPage(1); }}
-        onAdvancedFilters={onAdvancedFilters}
-        onExportCSV={onExportCSV}
-      />
+      {toolbar}
 
       <table className="w-full text-sm">
         <thead>
@@ -78,15 +55,14 @@ export default function DataTable({
           ) : (
             paginated.map((row, rowIndex) => (
               <tr
-                key={row.id ?? rowIndex}
+                key={row[rowKey] ?? rowIndex}
                 className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors"
               >
                 {columns.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-slate-600">
+                  <td key={col.key} className="px-4 py-3 text-slate-600 align-top">
                     {col.render
                       ? col.render(row[col.key], row)
-                      : (row[col.key] ?? <span className="text-slate-300">-</span>)
-                    }
+                      : (row[col.key] ?? <span className="text-slate-300">-</span>)}
                   </td>
                 ))}
               </tr>
@@ -97,7 +73,7 @@ export default function DataTable({
 
       <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200">
         <span className="text-sm text-slate-500">
-          Showing {startItem} to {endItem} of {totalItems.toLocaleString()} assets
+          Showing {startItem} to {endItem} of {totalItems.toLocaleString()} {itemLabel}
         </span>
 
         <div className="flex items-center gap-1">
