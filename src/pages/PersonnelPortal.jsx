@@ -5,6 +5,7 @@ import DataTable from "../components/DataTable";
 import PersonnelFilterBar from "../components/PersonnelFilterBar";
 import PendingCard from "../components/PendingCard"
 import StatusBadge from "../components/StatusBadge";
+import { label } from "framer-motion/client";
 
 const EMPLOYEES = [
   { eid: "000-101", name: "Alexandrea Mercado", department: "Operations", assetCount: 3, assetList: "Laptop, Phone, Token", status: "Active" },
@@ -87,6 +88,10 @@ export default function PersonnelPortal() {
 						{ label: "Audit Mode", variant: "outline", onClick: () => {} },
             { label: "Quick Report", variant: "solid", onClick: () => {} },
 					]}
+					primaryAction={{
+						label: "New Equipment Assignment",
+						onClick: () => console.log("Open new assignment")
+					}}
 				/>
 
 				<div className="grid grid-cols-4 gap-6 overflow-hidden mb-3">
