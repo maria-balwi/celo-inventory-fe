@@ -11,7 +11,7 @@ const config = {
 
 export default function StatusBadge({ status }) {
   const c = config[status] ?? {
-    dot: "bg-slate-400", text: "text-slate-300",
+    dot: "bg-slate-400", text: "text-slate-500",
     bg: "bg-slate-500/10", border: "border-slate-500/20",
   };
 
