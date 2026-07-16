@@ -4,6 +4,7 @@ import AssetInventory from './pages/AssetInventory'
 import PersonnelPortal from './pages/PersonnelPortal'
 import Reports from './pages/Reports'
 import AuditLogs from './pages/AuditLogs'
+import EquipmentAssignment from './pages/EquipmentAssignment'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 
@@ -17,6 +18,7 @@ export default function Router() {
 					<Route path='/personnel' element={<PersonnelPortal />}></Route>
 					<Route path='/reports' element={<Reports />}></Route>
 					<Route path='/audit' element={<AuditLogs />}></Route>
+					<Route path='/equipment-assignment' element={<EquipmentAssignment />}></Route>
 				</Route>
 				<Route path='/*' element={<NotFound />}></Route>
 			</Routes>
