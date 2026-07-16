@@ -7,6 +7,7 @@ import PendingCard from "../components/PendingCard"
 import StatusBadge from "../components/StatusBadge";
 import { label } from "framer-motion/client";
 import { Plus } from "lucide-react"
+import { useNavigate } from "react-router-dom";
 
 const EMPLOYEES = [
   { eid: "000-101", name: "Alexandrea Mercado", department: "Operations", assetCount: 3, assetList: "Laptop, Phone, Token", status: "Active" },
@@ -68,6 +69,7 @@ const employeeColumns = [
 ];
 
 export default function PersonnelPortal() {
+	const navigate = useNavigate();
 	const [search, setSearch] = useState("")
 	const [department, setDepartment] = useState("All Departments")
 
@@ -84,17 +86,9 @@ export default function PersonnelPortal() {
 			<div className="flex flex-col gap-4">
 				<PageHeader 
 					title="Personnel Portal"
-					subtitle="Manage employee assignments and asset handovers."
-					actions={[
-						{ label: "Audit Mode", variant: "outline", onClick: () => {} },
-            { label: "Quick Report", variant: "solid", onClick: () => {} },
-					]}
-					primaryAction={[
-						{
-							label: "New Equipment Assignment",
-							icon: <Plus size={16} strokeWidth={2.5} />,
-							onClick: () => console.log("Open new assignment")
-						},
+					subtitle="Manage employee assignments and asset handovers across global centers."
+					primaryActions={[
+						{ label: "New Equipment Assignment", icon: "add", onClick: () => navigate("/equipment-assignment") },
 					]}
 				/>
 
